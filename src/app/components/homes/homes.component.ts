@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, of } from 'rxjs';
+import { DataService } from 'src/app/services/data.service';
 import { IHome } from './interfaces/IHome';
 
 @Component({
@@ -12,27 +13,27 @@ export class HomesComponent implements OnInit {
   homes$ = this.homes.asObservable();
 
 
-  constructor() { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    // this.homes$ = this.dataService.getHomes$();
-    this.homes$ = of([ //Mocks
-      {
-        title: 'Home 1',
-        image: 'assets/listing.jpg',
-        location: 'New York'
-      },
-      {
-        title: 'Home 2',
-        image: 'assets/listing.jpg',
-        location: 'Boston'
-      },
-      {
-        title: 'Home 3',
-        image: 'assets/listing.jpg',
-        location: 'Chicagp'
-      },
-    ]);
+    this.homes$ = this.dataService.getHomes$();
+  //   this.homes$ = of([ //Mocks
+  //     {
+  //       title: 'Home 1',
+  //       image: 'assets/listing.jpg',
+  //       location: 'New York'
+  //     },
+  //     {
+  //       title: 'Home 2',
+  //       image: 'assets/listing.jpg',
+  //       location: 'Boston'
+  //     },
+  //     {
+  //       title: 'Home 3',
+  //       image: 'assets/listing.jpg',
+  //       location: 'Chicago'
+  //     },
+  //   ]);
   }
 
 }
