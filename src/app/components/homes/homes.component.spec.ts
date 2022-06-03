@@ -50,8 +50,6 @@ describe('HomesComponent', () => {
   });
 
   it('should show homes', () => {
-  
-
     expect(fixture.nativeElement.querySelectorAll('[data-test="home"]').length).toBe(3);
   });
 

@@ -1,15 +1,16 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { IHome } from '../components/homes/interfaces/IHome';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
   getHomes$() {
     //TODO add a real http call to get home.
-    return of([]);
+    return this.httpClient.get<IHome[]>('assets/homes.json');
   }
 }
