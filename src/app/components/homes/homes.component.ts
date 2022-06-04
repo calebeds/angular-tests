@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, of } from 'rxjs';
 import { DataService } from 'src/app/services/data.service';
+import { DialogService } from 'src/app/services/dialog.service';
+import { BookComponent } from '../book/book.component';
 import { IHome } from './interfaces/IHome';
 
 @Component({
@@ -13,27 +15,19 @@ export class HomesComponent implements OnInit {
   homes$ = this.homes.asObservable();
 
 
-  constructor(private dataService: DataService) { }
+  constructor(
+    private dataService: DataService,
+    private dialogService: DialogService
+    ) { }
 
   ngOnInit(): void {
     this.homes$ = this.dataService.getHomes$();
-  //   this.homes$ = of([ //Mocks
-  //     {
-  //       title: 'Home 1',
-  //       image: 'assets/listing.jpg',
-  //       location: 'New York'
-  //     },
-  //     {
-  //       title: 'Home 2',
-  //       image: 'assets/listing.jpg',
-  //       location: 'Boston'
-  //     },
-  //     {
-  //       title: 'Home 3',
-  //       image: 'assets/listing.jpg',
-  //       location: 'Chicago'
-  //     },
-  //   ]);
   }
 
+  openDialog() {
+    this.dialogService.open(BookComponent, {
+      width: '250px',
+      data: {}
+    });
+  }
 }

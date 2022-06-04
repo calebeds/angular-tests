@@ -8,8 +8,15 @@
                     <img [src]="home.image"/>
                 </div>
                 <div class="uk-card-body uk-padding-remove">
-                    <div data-test="title">{{ home.title }}</div>
-                    <div data-test="location">{{ home.location }}</div>
+                    <div data-test="title" class="uk-text-muted">
+                        {{ home.title }}
+                    </div>
+                    <div data-test="location" class="uk-text-muted">
+                        {{ home.location }}
+                    </div>
+                    <div data-test="book-btn">
+                        <button (click)="openDialog()">Book</button>
+                    </div>
                 </div>
             </div>
         </div>
