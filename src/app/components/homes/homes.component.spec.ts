@@ -39,17 +39,17 @@ describe('HomesComponent', () => {
       [
         {
           title: 'Home 1',
-          image: 'assets/listing.jpg',
+          image: 'assets/listing.png',
           location: 'New York'
         },
         {
           title: 'Home 2',
-          image: 'assets/listing.jpg',
+          image: 'assets/listing.png',
           location: 'Boston'
         },
         {
           title: 'Home 3',
-          image: 'assets/listing.jpg',
+          image: 'assets/listing.png',
           location: 'Chicago'
         },
       ]);

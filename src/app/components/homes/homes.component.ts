@@ -3,7 +3,7 @@ import { BehaviorSubject, of } from 'rxjs';
 import { DataService } from 'src/app/services/data.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { BookComponent } from '../book/book.component';
-import { IHome } from './interfaces/IHome';
+import { IHome } from '../../interfaces/IHome';
 
 @Component({
   selector: 'app-homes',
@@ -24,10 +24,10 @@ export class HomesComponent implements OnInit {
     this.homes$ = this.dataService.getHomes$();
   }
 
-  openDialog() {
+  openDialog(home: IHome) {
     this.dialogService.open(BookComponent, {
       width: '250px',
-      data: {}
+      data: {home: home}
     });
   }
 }

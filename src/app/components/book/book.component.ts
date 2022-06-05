@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { IHome } from '../../interfaces/IHome';
 
 @Component({
   selector: 'app-book',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BookComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: {home: IHome}) { }
 
   ngOnInit(): void {
+    console.log(this.data);
   }
 
 }

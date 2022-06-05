@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IHome } from '../components/homes/interfaces/IHome';
+import { IHome } from '../interfaces/IHome';
 
 @Injectable({
   providedIn: 'root'
