@@ -1,7 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { spyOnClass } from 'jasmine-es6-spies';
 import { of } from 'rxjs';
 import { DataService } from 'src/app/services/data.service';
@@ -27,14 +32,22 @@ describe('BookComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormsModule],
+      imports: [
+        FormsModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatFormFieldModule,
+        MatInputModule,
+        BrowserAnimationsModule
+      ],
       declarations: [ BookComponent ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialog, useValue: {} },
         { provide: MatDialogRef, useValue: {} },
         { provide: DataService, useValue: () => spyOnClass(DataService) },
-        { provide: MatSnackBar, useFactory: () => spyOnClass(MatSnackBar) }
+        { provide: MatSnackBar, useFactory: () => spyOnClass(MatSnackBar) },
+        { provide: MatDatepicker, useFactory: () => spyOnClass(MatDatepicker) }
       ]
     })
     .compileComponents();
@@ -80,16 +93,15 @@ describe('BookComponent', () => {
   });
 
   it('should show total', () => {
-    
-    // user enters check in date: 2023-01-10
+    // user enters check in date: 01/10/2023
     const checkInInput = el('[data-test="check-in"] input');
-    checkInInput.value = '2023-01-10';
+    checkInInput.value = '01/10/2023';
     checkInInput.dispatchEvent(new Event('input'));
     fixture.detectChanges();
 
-    // user enters check out date: 2023-01-11
+    // user enters check out date: 01/13/2023
     const checkOutInput = el('[data-test="check-out"] input');
-    checkOutInput.value = '2023-01-13';
+    checkOutInput.value = '01/13/2023';
     checkOutInput.dispatchEvent(new Event('input'));
     fixture.detectChanges();
 
@@ -98,15 +110,15 @@ describe('BookComponent', () => {
   });
 
   it('should book home after clicking the Book button', () => {
-    // user enters check in date: 2023-01-10
+    // user enters check in date: 01/10/2023
     const checkInInput = el('[data-test="check-in"] input');
-    checkInInput.value = '2023-01-10';
+    checkInInput.value = '01/10/2023';
     checkInInput.dispatchEvent(new Event('input'));
     fixture.detectChanges();
 
-    // user enters check out date: 2023-01-11
+    // user enters check out date: 01/13/2023
     const checkOutInput = el('[data-test="check-out"] input');
-    checkOutInput.value = '2023-01-13';
+    checkOutInput.value = '01/13/2023';
     checkOutInput.dispatchEvent(new Event('input'));
     fixture.detectChanges();
 
@@ -139,6 +151,23 @@ describe('BookComponent', () => {
 
     expect(dialogRef.close).toHaveBeenCalled();
     expect(snackBar.open).toHaveBeenCalled();
+  });
+
+  it('should show -- for total when dates are invalid', () => {
+    // user enters check in date: ''
+    const checkInInput = el('[data-test="check-in"] input');
+    checkInInput.value = '';
+    checkInInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    // user enters check out date: ''
+    const checkOutInput = el('[data-test="check-out"] input');
+    checkOutInput.value = '';
+    checkOutInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    // assert that the total shows 3x125=375
+    expect(el('[data-test="total"]').textContent).toContain('Total: $--');
   });
 
 });

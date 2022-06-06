@@ -26,16 +26,23 @@ export class BookComponent implements OnInit {
     console.log(this.data);
   }
 
-  calculateTotal(): number {
+  calculateTotal(): number | string {
     // console.log(this.checkIn, this.checkOut);
 
     // find the difference between the dates which will give number of nigths.
-    const dateCheckIn = moment(this.checkIn, 'YYYY-MM-DD');
-    const dateCheckOut = moment(this.checkOut, 'YYYY-MM-DD');
+    const dateCheckIn = moment(this.checkIn, 'DD-MM-YYYY');
+    const dateCheckOut = moment(this.checkOut, 'DD-MM-YYYY');
     const nights = dateCheckOut.diff(dateCheckIn, 'days');
 
     // multiply the number of nights by the price
-    return nights * this.data.home.price;
+    const total = nights * this.data.home.price;
+
+    // return the total
+    if(total.toString() === 'NaN' || total === null || total < 0) 
+      return '--';
+    else 
+      return total;
+    
   }
 
   bookHome() {
